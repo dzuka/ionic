@@ -9,12 +9,16 @@
 
 <ion-content padding>
   <h3>2DO List</h3>
-
+<button (click)="addNewTodo()">Add New</button>
   <ion-list>
-    <button ion-item *ngFor="let item of items">
+    <button ion-item *ngFor="let item of items" (click)="selectItem(item)">
+        <ion-icon name="alarm"></ion-icon>
       {{item.title}}
-      <div>{{item.note}}</div>
+      <div class="item-note">{{item.note}}</div>
     </button>
-    </ion-item>
   </ion-list>
+
+  <div *ngIf="selectedItem">
+    Selektovali ste: {{ selectedItem.title }}
+  </div>
 </ion-content>

@@ -4,7 +4,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { Network } from '@ionic-native/network';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +19,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public network: Network, public alertCtrl: AlertController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -32,6 +35,16 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      if(this.network.type === 'none') {
+        let alert = this.alertCtrl.create({
+          title:"Greska",
+          subTitle: 'Nemate konekciju na mrezi'
+        });
+
+        alert.present();
+
+      }
     });
   }
 
